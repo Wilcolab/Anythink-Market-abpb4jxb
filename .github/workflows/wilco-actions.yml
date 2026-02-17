@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     name: Pr checks
+    services:
+      mongo:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
 
     steps:
       - name: Check out project
@@ -18,10 +23,7 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.6.0
-        with:
-          mongodb-version: "4.4"
+      # MongoDB provided as a service (available at localhost:27017)
 
       - uses: oNaiPs/secrets-to-env-action@v1
         with:
